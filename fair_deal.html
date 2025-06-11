@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranbir Singh Rana - Business Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .card {
+            width: 380px;
+            height: 600px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 25px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: rotateY(5deg) rotateX(5deg) scale(1.05);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.2),
+                0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 25px 25px 0 0;
+            z-index: 1;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .profile-section {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 30px 20px 20px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        .profile-img::before {
+            content: '\f007';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 40px;
+            color: #999;
+        }
+
+        .rera-badge {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            z-index: 3;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .title {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        .company {
+            font-size: 20px;
+            font-weight: 800;
+            color: #764ba2;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .info {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 0.8s ease-out 0.6s both;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item i {
+            font-size: 18px;
+            color: #667eea;
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        .info-item span {
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 20px;
+            animation: slideInUp 0.8s ease-out 0.8s both;
+        }
+
+        .qr-placeholder {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border: 2px dashed #ccc;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .qr-placeholder:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            animation: slideInUp 0.8s ease-out 1s both;
+        }
+
+        .social a {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social a:hover::before {
+            left: 100%;
+        }
+
+        .social a:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .social a img {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social a:nth-child(1):hover {
+            background: #1877f2;
+        }
+
+        .social a:nth-child(2):hover {
+            background: #333;
+        }
+
+        .social a:nth-child(3):hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .social a:hover img {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+            100% { box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .card {
+                width: 340px;
+                height: 550px;
+            }
+            
+            .name {
+                font-size: 20px;
+            }
+            
+            .info {
+                margin: 15px;
+                padding: 20px;
+            }
+        }
+
+        /* Glowing effect on hover */
+        .card:hover::before {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Interactive elements */
+        .info-item:active {
+            transform: scale(0.98);
+        }
+
+        .social a:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="rera-badge">
+                <i class="fas fa-certificate" style="color: #667eea; font-size: 16px;"></i>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-img"></div>
+                <div class="name">Ranbir Singh Rana & Mridul Bhalla</div>
+                <div class="title">Real Estate Agent</div>
+                <div class="company">FAIR DEAL</div>
+            </div>
+            
+            <div class="info">
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>78142-16030, 97791-78782</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>rranbirr9@gmail.com</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Shop number [Address]</span>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <div class="qr-placeholder">
+                    <div>
+                        <i class="fas fa-qrcode" style="font-size: 20px; color: #ccc; margin-bottom: 5px;"></i>
+                        <div>QR Code</div>
+                    </div>
+                </div>
+                
+                <div class="social">
+                    <a href="https://www.facebook.com/profile.php?id=61555877685866" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+                    </a>
+                    <a href="https://github.com/Rajvansh977" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3670/3670167.png" alt="GitHub">
+                    </a>
+                    <a href="https://www.instagram.com/rajvansh7906?utm_source=qr&igsh=MXJxa2w1YzQ0cWRodQ==" target="_blank">
+                        <img src="https://img.icons8.com/?size=100&id=BrU2BBoRXiWq&format=png&color=000000" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive hover effects
+        const card = document.querySelector('.card');
+        const infoItems = document.querySelectorAll('.info-item');
+        
+        // Card tilt effect
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+        
+        // Info item click effects
+        infoItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const text = item.querySelector('span').textContent;
+                if (text.includes('@')) {
+                    window.open(`mailto:${text}`, '_blank');
+                } else if (text.includes('78142') || text.includes('97791')) {
+                    window.open(`tel:${text.replace(/[^0-9]/g, '')}`, '_blank');
+                }
+            });
+        });
+        
+        // Add sparkle effect on card hover
+        card.addEventListener('mouseenter', () => {
+            createSparkles();
+        });
+        
+        function createSparkles() {
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.cssText = `
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: #fff;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        animation: sparkle 1s ease-out forwards;
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        z-index: 1000;
+                    `;
+                    
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes sparkle {
+                            0% { opacity: 1; transform: scale(0); }
+                            50% { opacity: 1; transform: scale(1); }
+                            100% { opacity: 0; transform: scale(0); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    card.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.parentNode.removeChild(sparkle);
+                        }
+                    }, 1000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
